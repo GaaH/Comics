@@ -1,4 +1,5 @@
 ﻿using Comics.Services;
+using Comics.UserStorage;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System.Windows.Input;
@@ -10,7 +11,7 @@ namespace Comics.ViewModels
         public override ICommand ResumeComicCommand { get; }
 
 
-        public ExplosmViewModel(INavigationService navigationService, ExplosmProvider comicProvider) : base(navigationService, comicProvider)
+        public ExplosmViewModel(INavigationService navigationService, ExplosmProvider comicProvider) : base(navigationService, comicProvider, ComicSettings.ExplosmSettings)
         {
             ResumeComicCommand = new RelayCommand(ResumeComicAsync);
         }
@@ -19,7 +20,16 @@ namespace Comics.ViewModels
         {
             if (Comic == null)
             {
-                Comic = await ComicProvider.LoadLatestComicAsync();
+                var comicUri = ComicSettings.ExplosmSettings.LastViewedUri;
+
+                if (comicUri == null)
+                {
+                    Comic = await ComicProvider.LoadLatestComicAsync();
+                }
+                else
+                {
+                    Comic = await ComicProvider.LoadComicAsync(comicUri);
+                }
             }
         }
     }

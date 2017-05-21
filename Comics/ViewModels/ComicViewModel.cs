@@ -1,5 +1,6 @@
 ﻿using Comics.Models;
 using Comics.Services;
+using Comics.UserStorage;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -12,6 +13,8 @@ namespace Comics.ViewModels
         protected INavigationService NavigationService { get; }
         protected IComicProvider ComicProvider { get; }
 
+        private ComicSettings Settings { get; }
+
         private Comic comic;
         public Comic Comic
         {
@@ -19,10 +22,13 @@ namespace Comics.ViewModels
             protected set
             {
                 Set(ref comic, value);
+
                 LoadOldestComicCommand.RaiseCanExecuteChanged();
                 LoadLatestComicCommand.RaiseCanExecuteChanged();
                 LoadPreviousComicCommand.RaiseCanExecuteChanged();
                 LoadNextComicCommand.RaiseCanExecuteChanged();
+
+                Settings.LastViewedUri = Comic.ComicUri;
             }
         }
 
@@ -32,10 +38,11 @@ namespace Comics.ViewModels
         public RelayCommand LoadPreviousComicCommand { get; }
         public RelayCommand LoadNextComicCommand { get; }
 
-        public ComicViewModel(INavigationService navigationService, IComicProvider comicProvider)
+        public ComicViewModel(INavigationService navigationService, IComicProvider comicProvider, ComicSettings settings)
         {
             NavigationService = navigationService;
             ComicProvider = comicProvider;
+            Settings = settings;
 
             LoadOldestComicCommand = new RelayCommand(LoadOldestComicAsync, () => Comic == null || Comic.HasPreviousComic);
             LoadLatestComicCommand = new RelayCommand(LoadLatestComicAsync, () => Comic == null || Comic.HasNextComic);

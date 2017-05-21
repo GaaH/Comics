@@ -102,6 +102,8 @@
     <Compile Include="Models\PageLink.cs" />
     <Compile Include="Services\ExplosmProvider.cs" />
     <Compile Include="Services\IComicProvider.cs" />
+    <Compile Include="UserStorage\ComicSettings.cs" />
+    <Compile Include="UserStorage\SettingsKeys.cs" />
     <Compile Include="ViewModels\ComicViewModel.cs" />
     <Compile Include="ViewModels\ExplosmViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
