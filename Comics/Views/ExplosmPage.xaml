@@ -15,7 +15,7 @@
             <interactions:InvokeCommandAction Command="{x:Bind Vm.ResumeComicCommand}" />
         </interactions:EventTriggerBehavior>
     </interactivity:Interaction.Behaviors>
-    
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Margin="4">
             <Grid.RowDefinitions>
@@ -26,7 +26,16 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Cyanide &amp; Happiness" Style="{StaticResource HeaderTextBlockStyle}" Grid.Row="0"/>
-            <Image Source="{x:Bind Vm.Comic.ComicStrip, Mode=OneWay}" Grid.Row="1" />
+
+            <ScrollViewer ZoomMode="Enabled"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalContentAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          Grid.Row="1">
+                <Image Source="{x:Bind Vm.Comic.ComicStrip, Mode=OneWay}" />
+            </ScrollViewer>
+
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <Button Content="Oldest" Command="{x:Bind Vm.LoadOldestComicCommand}" />
                 <Button Content="Previous" Command="{x:Bind Vm.LoadPreviousComicCommand}" />
@@ -34,7 +43,7 @@
                 <Button Content="Latest" Command="{x:Bind Vm.LoadLatestComicCommand}" />
             </StackPanel>
             <AppBar Grid.Row="3">
-                
+
             </AppBar>
         </Grid>
     </Grid>
