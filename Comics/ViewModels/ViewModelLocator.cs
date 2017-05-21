@@ -1,5 +1,6 @@
 ﻿using Comics.Services;
 using Comics.Views;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
@@ -12,6 +13,11 @@ namespace Comics.ViewModels
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                SimpleIoc.Default.Unregister<INavigationService>();
+            }
 
             SimpleIoc.Default.Register(BuildNavigationService);
             SimpleIoc.Default.Register<ExplosmProvider>();
