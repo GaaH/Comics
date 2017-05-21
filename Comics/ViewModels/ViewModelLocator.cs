@@ -1,5 +1,5 @@
-﻿using Comics.Views;
-using GalaSoft.MvvmLight;
+﻿using Comics.Services;
+using Comics.Views;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
@@ -13,14 +13,9 @@ namespace Comics.ViewModels
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-
-            }
-            else
-            {
-                SimpleIoc.Default.Register(BuildNavigationService);
-            }
+            SimpleIoc.Default.Register(BuildNavigationService);
+            SimpleIoc.Default.Register<ExplosmProvider>();
+            SimpleIoc.Default.Register<ExplosmViewModel>();
         }
 
         private INavigationService BuildNavigationService()
@@ -35,5 +30,7 @@ namespace Comics.ViewModels
 
             return service;
         }
+
+        public ExplosmViewModel ExplosmViewModel => ServiceLocator.Current.GetInstance<ExplosmViewModel>();
     }
 }

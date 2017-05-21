@@ -8,12 +8,19 @@ namespace Comics.Models
         public ComicWebsite ComicWebsite { get; }
         public Uri ComicUri { get; }
         public BitmapImage ComicStrip { get; }
+        public Uri NextComic { get; }
+        public Uri PreviousComic { get; }
 
-        public Comic(ComicWebsite website, Uri uri, BitmapImage comicStrip)
+        public bool HasNextComic => NextComic != null;
+        public bool HasPreviousComic => PreviousComic != null;
+
+        public Comic(ComicWebsite website, Uri uri, BitmapImage comicStrip, Uri previousComic, Uri nextComic)
         {
             ComicWebsite = website;
             ComicUri = uri;
             ComicStrip = comicStrip;
+            NextComic = nextComic;
+            PreviousComic = previousComic;
         }
     }
 }

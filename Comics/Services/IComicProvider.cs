@@ -6,6 +6,8 @@ namespace Comics.Services
 {
     public interface IComicProvider
     {
+        Task<Comic> LoadLatestComicAsync();
+        Task<Comic> LoadOldestComicAsync();
         Task<Comic> LoadComicAsync(Uri uri);
     }
 }
