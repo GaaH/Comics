@@ -20,9 +20,9 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Comics" Style="{StaticResource HeaderTextBlockStyle}" Grid.Row="0" />
-            <ListBox x:Name="NavigationList" ItemsSource="{x:Bind Vm.Links}" Grid.Row="1">
+            <ListBox x:Name="NavigationList" ItemsSource="{x:Bind Vm.Links}" SelectionMode="Single" Grid.Row="1">
                 <interactivity:Interaction.Behaviors>
-                    <interaction:EventTriggerBehavior EventName="Tapped">
+                    <interaction:EventTriggerBehavior EventName="SelectionChanged">
                         <interaction:InvokeCommandAction Command="{x:Bind Vm.GoToPageCommand}" CommandParameter="{Binding SelectedItem, ElementName=NavigationList}" />
                     </interaction:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
