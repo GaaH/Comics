@@ -25,7 +25,7 @@ namespace Comics.ViewModels
             Links =
                 new List<PageLink>()
                 {
-                    new PageLink(new Explosm(), nameof(ExplosmPage))
+                    new PageLink(ComicWebsite.Explosm, nameof(ExplosmPage))
                 };
 
             GoToPageCommand = new RelayCommand<PageLink>(GoToPage);

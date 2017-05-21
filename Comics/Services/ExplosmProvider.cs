@@ -11,12 +11,12 @@ namespace Comics.Services
     {
         public async Task<Comic> LoadLatestComicAsync()
         {
-            return await LoadComicAsync(new Uri(Explosm.ExplosmUri, "comics/latest"));
+            return await LoadComicAsync(new Uri(ComicWebsite.Explosm.HomePageUri, "comics/latest"));
         }
 
         public async Task<Comic> LoadOldestComicAsync()
         {
-            return await LoadComicAsync(new Uri(Explosm.ExplosmUri, "comics/oldest"));
+            return await LoadComicAsync(new Uri(ComicWebsite.Explosm.HomePageUri, "comics/oldest"));
         }
 
         public async Task<Comic> LoadComicAsync(Uri uri)
@@ -31,7 +31,7 @@ namespace Comics.Services
             var imgSrc = new Uri($"http:{imgNode.Attributes["src"].Value}");
             var comicStrip = new BitmapImage(imgSrc);
 
-            return new Comic(new Explosm(), uri, comicStrip, previousUri, nextUri);
+            return new Comic(ComicWebsite.Explosm, uri, comicStrip, previousUri, nextUri);
         }
 
         private HtmlNode GetComicStripNode(HtmlNode doc)

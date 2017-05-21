@@ -99,7 +99,6 @@
     </Compile>
     <Compile Include="Models\Comic.cs" />
     <Compile Include="Models\ComicWebsite.cs" />
-    <Compile Include="Models\Explosm.cs" />
     <Compile Include="Models\PageLink.cs" />
     <Compile Include="Services\ExplosmProvider.cs" />
     <Compile Include="Services\IComicProvider.cs" />
