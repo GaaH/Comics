@@ -26,7 +26,10 @@ namespace Comics.ViewModels
 
         private async void ResumeComicAsync()
         {
-            Comic = await ComicProvider.LoadLatestComicAsync();
+            if (Comic == null)
+            {
+                Comic = await ComicProvider.LoadLatestComicAsync();
+            }
         }
 
         private async void LoadOldestComicAsync()
