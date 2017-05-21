@@ -40,5 +40,6 @@ namespace Comics.UserStorage
         }
 
         public static ComicSettings ExplosmSettings = new ComicSettings("Explosm");
+        public static ComicSettings XkcdSettings = new ComicSettings("Xkcd");
     }
 }

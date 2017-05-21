@@ -15,14 +15,17 @@ namespace Comics.ViewModels
 
             SimpleIoc.Default.Register(BuildNavigationService);
             SimpleIoc.Default.Register<ExplosmProvider>();
+            SimpleIoc.Default.Register<XkcdProvider>();
+
             SimpleIoc.Default.Register<ExplosmViewModel>();
+            SimpleIoc.Default.Register<XkcdViewModel>();
             SimpleIoc.Default.Register<HomeViewModel>();
         }
 
         private INavigationService BuildNavigationService()
         {
             var service = new NavigationService();
-            var pageTypes = new Type[] { typeof(HomePage), typeof(ExplosmPage) };
+            var pageTypes = new Type[] { typeof(HomePage), typeof(ExplosmPage), typeof(XkcdPage) };
 
             foreach (var pageType in pageTypes)
             {
@@ -33,6 +36,7 @@ namespace Comics.ViewModels
         }
 
         public ExplosmViewModel ExplosmViewModel => ServiceLocator.Current.GetInstance<ExplosmViewModel>();
+        public XkcdViewModel XkcdViewModel => ServiceLocator.Current.GetInstance<XkcdViewModel>();
         public HomeViewModel HomeViewModel => ServiceLocator.Current.GetInstance<HomeViewModel>();
     }
 }
