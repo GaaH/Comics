@@ -16,12 +16,13 @@ namespace Comics.ViewModels
             SimpleIoc.Default.Register(BuildNavigationService);
             SimpleIoc.Default.Register<ExplosmProvider>();
             SimpleIoc.Default.Register<ExplosmViewModel>();
+            SimpleIoc.Default.Register<HomeViewModel>();
         }
 
         private INavigationService BuildNavigationService()
         {
             var service = new NavigationService();
-            var pageTypes = new Type[] { typeof(MainPage) };
+            var pageTypes = new Type[] { typeof(HomePage), typeof(ExplosmPage) };
 
             foreach (var pageType in pageTypes)
             {
@@ -32,5 +33,6 @@ namespace Comics.ViewModels
         }
 
         public ExplosmViewModel ExplosmViewModel => ServiceLocator.Current.GetInstance<ExplosmViewModel>();
+        public HomeViewModel HomeViewModel => ServiceLocator.Current.GetInstance<HomeViewModel>();
     }
 }

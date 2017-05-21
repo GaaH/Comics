@@ -100,16 +100,18 @@
     <Compile Include="Models\Comic.cs" />
     <Compile Include="Models\ComicWebsite.cs" />
     <Compile Include="Models\Explosm.cs" />
+    <Compile Include="Models\PageLink.cs" />
     <Compile Include="Services\ExplosmProvider.cs" />
     <Compile Include="Services\IComicProvider.cs" />
     <Compile Include="ViewModels\ComicViewModel.cs" />
     <Compile Include="ViewModels\ExplosmViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ExplosmPage.xaml.cs">
       <DependentUpon>ExplosmPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -138,7 +140,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainPage.xaml">
+    <Page Include="Views\HomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
