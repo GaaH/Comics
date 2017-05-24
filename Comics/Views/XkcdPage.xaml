@@ -50,7 +50,7 @@
                        Style="{StaticResource BaseTextBlockStyle}"
                        Grid.Row="2" />
 
-            <StackPanel Orientation="Horizontal" Grid.Row="3">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
                 <Button Content="Oldest" Command="{x:Bind Vm.LoadOldestComicCommand}" />
                 <Button Content="Previous" Command="{x:Bind Vm.LoadPreviousComicCommand}" />
                 <Button Content="Next" Command="{x:Bind Vm.LoadNextComicCommand}" />
