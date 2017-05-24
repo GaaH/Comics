@@ -10,8 +10,8 @@ namespace Comics.UserStorage
         {
             get
             {
-                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                var settings = localSettings.CreateContainer(Key, Windows.Storage.ApplicationDataCreateDisposition.Always);
+                var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+                var settings = roamingSettings.CreateContainer(Key, Windows.Storage.ApplicationDataCreateDisposition.Always);
 
                 settings.Values.TryGetValue(SettingsKeys.LastViewedKey, out object retrieved);
 
@@ -27,8 +27,8 @@ namespace Comics.UserStorage
             }
             set
             {
-                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                var settings = localSettings.CreateContainer(Key, Windows.Storage.ApplicationDataCreateDisposition.Always);
+                var roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+                var settings = roamingSettings.CreateContainer(Key, Windows.Storage.ApplicationDataCreateDisposition.Always);
 
                 settings.Values[SettingsKeys.LastViewedKey] = value.AbsoluteUri;
             }
