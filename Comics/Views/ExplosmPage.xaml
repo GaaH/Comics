@@ -32,8 +32,18 @@
                           VerticalScrollBarVisibility="Auto"
                           HorizontalContentAlignment="Stretch"
                           VerticalAlignment="Stretch"
+                          x:Name="ImageViewer"
                           Grid.Row="1">
-                <Image Source="{x:Bind Vm.ComicStrip, Mode=OneWay}" />
+
+                <Image Source="{x:Bind Vm.ComicStrip, Mode=OneWay}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                    <interactivity:Interaction.Behaviors>
+                        <interactions:EventTriggerBehavior EventName="ImageOpened">
+                            <interactions:InvokeCommandAction Command="{x:Bind Vm.SetZoomFactorCommand}" CommandParameter="{Binding ElementName=ImageViewer}" />
+                        </interactions:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </Image>
             </ScrollViewer>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2">
