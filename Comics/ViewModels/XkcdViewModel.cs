@@ -1,4 +1,5 @@
-﻿using Comics.Services;
+﻿using Comics.Models;
+using Comics.Services;
 using Comics.UserStorage;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -9,6 +10,18 @@ namespace Comics.ViewModels
     public class XkcdViewModel : ComicViewModel
     {
         public override ICommand ResumeComicCommand { get; }
+
+        private XkcdComic xkcdComic;
+        public XkcdComic XkcdComic
+        {
+            get { return xkcdComic; }
+            protected set
+            {
+                Set(ref xkcdComic, value);
+                Comic = XkcdComic;
+            }
+        }
+
 
         public XkcdViewModel(INavigationService navigationService, XkcdProvider comicProvider) : base(navigationService, comicProvider, ComicSettings.XkcdSettings)
         {
@@ -23,11 +36,11 @@ namespace Comics.ViewModels
 
                 if (comicUri == null)
                 {
-                    Comic = await ComicProvider.LoadLatestComicAsync();
+                    XkcdComic = (XkcdComic)await ComicProvider.LoadLatestComicAsync();
                 }
                 else
                 {
-                    Comic = await ComicProvider.LoadComicAsync(comicUri);
+                    XkcdComic = (XkcdComic)await ComicProvider.LoadComicAsync(comicUri);
                 }
             }
         }

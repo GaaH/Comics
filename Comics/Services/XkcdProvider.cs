@@ -29,10 +29,10 @@ namespace Comics.Services
             var (previousUri, nextUri) = FindPreviousAndNextComicUri(doc);
 
             var imgSrc = new Uri($"http:{imgNode.Attributes["src"].Value}");
-            var imgTitle = imgNode.Attributes["title"].Value;
+            var imgTitle = System.Net.WebUtility.HtmlDecode(imgNode.Attributes["title"].Value);
             var comicStrip = new BitmapImage(imgSrc);
 
-            return new Comic(ComicWebsite.Explosm, uri, comicStrip, previousUri, nextUri);
+            return new XkcdComic(ComicWebsite.Explosm, uri, comicStrip, imgTitle, previousUri, nextUri);
         }
 
         private HtmlNode GetComicStripNode(HtmlNode doc)

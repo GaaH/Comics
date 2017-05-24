@@ -23,9 +23,10 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Cyanide &amp; Happiness" Style="{StaticResource HeaderTextBlockStyle}" Grid.Row="0"/>
+            <TextBlock Text="Xkcd" Style="{StaticResource HeaderTextBlockStyle}" Grid.Row="0"/>
 
             <ScrollViewer ZoomMode="Enabled"
                           HorizontalScrollBarVisibility="Auto"
@@ -36,13 +37,17 @@
                 <Image Source="{x:Bind Vm.Comic.ComicStrip, Mode=OneWay}" />
             </ScrollViewer>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <TextBlock Text="{x:Bind Vm.XkcdComic.Description, Mode=OneWay}"
+                       Style="{StaticResource BaseTextBlockStyle}"
+                       Grid.Row="2" />
+
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <Button Content="Oldest" Command="{x:Bind Vm.LoadOldestComicCommand}" />
                 <Button Content="Previous" Command="{x:Bind Vm.LoadPreviousComicCommand}" />
                 <Button Content="Next" Command="{x:Bind Vm.LoadNextComicCommand}" />
                 <Button Content="Latest" Command="{x:Bind Vm.LoadLatestComicCommand}" />
             </StackPanel>
-            <CommandBar Grid.Row="3">
+            <CommandBar Grid.Row="4">
 
             </CommandBar>
         </Grid>
