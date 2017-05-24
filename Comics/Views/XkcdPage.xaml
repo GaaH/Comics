@@ -34,10 +34,10 @@
                           HorizontalContentAlignment="Stretch"
                           VerticalAlignment="Stretch"
                           Grid.Row="1">
-                <Image Source="{x:Bind Vm.Comic.ComicStrip, Mode=OneWay}" />
+                <Image Source="{x:Bind Vm.ComicStrip, Mode=OneWay}" />
             </ScrollViewer>
 
-            <TextBlock Text="{x:Bind Vm.XkcdComic.Description, Mode=OneWay}"
+            <TextBlock Text="{x:Bind Vm.Description, Mode=OneWay}"
                        Style="{StaticResource BaseTextBlockStyle}"
                        Grid.Row="2" />
 

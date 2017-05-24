@@ -4,7 +4,9 @@ using Comics.UserStorage;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using System;
 using System.Windows.Input;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Comics.ViewModels
 {
@@ -16,12 +18,15 @@ namespace Comics.ViewModels
         private ComicSettings Settings { get; }
 
         private Comic comic;
-        public Comic Comic
+        protected virtual Comic Comic
         {
             get { return comic; }
-            protected set
+            set
             {
                 Set(ref comic, value);
+
+                ComicStrip = comic.ComicStrip;
+                ComicUri = comic.ComicUri;
 
                 LoadOldestComicCommand.RaiseCanExecuteChanged();
                 LoadLatestComicCommand.RaiseCanExecuteChanged();
@@ -37,6 +42,22 @@ namespace Comics.ViewModels
         public RelayCommand LoadLatestComicCommand { get; }
         public RelayCommand LoadPreviousComicCommand { get; }
         public RelayCommand LoadNextComicCommand { get; }
+
+        private BitmapImage comicStrip;
+        public BitmapImage ComicStrip
+        {
+            get { return comicStrip; }
+            private set { Set(ref comicStrip, value); }
+        }
+
+        private Uri comicUri;
+        public Uri ComicUri
+        {
+            get { return comicUri; }
+            set { Set(ref comicUri, value); }
+        }
+
+
 
         public ComicViewModel(INavigationService navigationService, IComicProvider comicProvider, ComicSettings settings)
         {

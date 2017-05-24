@@ -11,14 +11,23 @@ namespace Comics.ViewModels
     {
         public override ICommand ResumeComicCommand { get; }
 
-        private XkcdComic xkcdComic;
-        public XkcdComic XkcdComic
+        protected override Comic Comic
         {
-            get { return xkcdComic; }
-            protected set
+            set
             {
-                Set(ref xkcdComic, value);
-                Comic = XkcdComic;
+                base.Comic = value;
+                Description = (Comic as XkcdComic)?.Description;
+            }
+        }
+
+
+        private string description;
+        public string Description
+        {
+            get { return description; }
+            private set
+            {
+                Set(ref description, value);
             }
         }
 
@@ -33,15 +42,19 @@ namespace Comics.ViewModels
             if (Comic == null)
             {
                 var comicUri = ComicSettings.XkcdSettings.LastViewedUri;
+                XkcdComic xkcd = null;
 
                 if (comicUri == null)
                 {
-                    XkcdComic = (XkcdComic)await ComicProvider.LoadLatestComicAsync();
+                    xkcd = (XkcdComic)await ComicProvider.LoadLatestComicAsync();
                 }
                 else
                 {
-                    XkcdComic = (XkcdComic)await ComicProvider.LoadComicAsync(comicUri);
+                    xkcd = (XkcdComic)await ComicProvider.LoadComicAsync(comicUri);
                 }
+
+                Comic = xkcd;
+                Description = xkcd.Description;
             }
         }
     }

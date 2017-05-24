@@ -33,7 +33,7 @@
                           HorizontalContentAlignment="Stretch"
                           VerticalAlignment="Stretch"
                           Grid.Row="1">
-                <Image Source="{x:Bind Vm.Comic.ComicStrip, Mode=OneWay}" />
+                <Image Source="{x:Bind Vm.ComicStrip, Mode=OneWay}" />
             </ScrollViewer>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2">
