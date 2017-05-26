@@ -97,6 +97,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Messages\ShareComicMessage.cs" />
     <Compile Include="Models\Comic.cs" />
     <Compile Include="Models\ComicWebsite.cs" />
     <Compile Include="Models\PageLink.cs" />

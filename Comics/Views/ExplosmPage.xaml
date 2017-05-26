@@ -22,7 +22,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock Text="Cyanide &amp; Happiness" Style="{StaticResource HeaderTextBlockStyle}" Grid.Row="0"/>
@@ -46,14 +45,52 @@
                 </Image>
             </ScrollViewer>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-                <Button Content="Oldest" Command="{x:Bind Vm.LoadOldestComicCommand}" />
-                <Button Content="Previous" Command="{x:Bind Vm.LoadPreviousComicCommand}" />
-                <Button Content="Next" Command="{x:Bind Vm.LoadNextComicCommand}" />
-                <Button Content="Latest" Command="{x:Bind Vm.LoadLatestComicCommand}" />
-            </StackPanel>
-            <CommandBar Grid.Row="3">
+            <CommandBar Grid.Row="2">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton Label="Oldest" Command="{x:Bind Vm.LoadOldestComicCommand}">
+                        <AppBarButton.ContentTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76B;" Margin="-4 0 0 0" />
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76B;" Margin="4 0 0 0" />
+                                </Grid>
+                            </DataTemplate>
+                        </AppBarButton.ContentTemplate>
+                    </AppBarButton>
+                    
+                    <AppBarButton Label="Previous" Command="{x:Bind Vm.LoadPreviousComicCommand}">
+                        <AppBarButton.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76B;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
 
+                    <AppBarButton Label="Next" Command="{x:Bind Vm.LoadNextComicCommand}">
+                        <AppBarButton.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76C;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+
+                    <AppBarButton Label="Latest" Command="{x:Bind Vm.LoadLatestComicCommand}">
+                        <AppBarButton.ContentTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76C;" Margin="-4 0 0 0" />
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76C;" Margin="4 0 0 0" />
+                                </Grid>
+                            </DataTemplate>
+                        </AppBarButton.ContentTemplate>
+                    </AppBarButton>
+
+                    <AppBarButton Label="Share" Command="{x:Bind Vm.ShareComicCommand}">
+                        <AppBarButton.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                </CommandBar.PrimaryCommands>
+
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Label="Open in browser" Command="{x:Bind Vm.OpenInBrowserCommand}" />
+                </CommandBar.SecondaryCommands>
             </CommandBar>
         </Grid>
     </Grid>

@@ -1,6 +1,14 @@
-﻿using System;
+﻿using Comics.Messages;
+using Comics.Models;
+using GalaSoft.MvvmLight.Messaging;
+using System;
+using System.IO;
+using System.Net.Http;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +21,9 @@ namespace Comics
     /// </summary>
     sealed partial class App : Application
     {
+        private Comic SharedComic { get; set; }
+        private StorageFile SharedImage { get; set; }
+
         /// <summary>
         /// Initialise l'objet d'application de singleton.  Il s'agit de la première ligne du code créé
         /// à être exécutée. Elle correspond donc à l'équivalent logique de main() ou WinMain().
@@ -41,6 +52,11 @@ namespace Comics
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 rootFrame.Navigated += OnNavigated;
+
+                DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+                dataTransferManager.DataRequested += OnDataRequested;
+
+                Messenger.Default.Register<ShareComicMessage>(this, OnShareComicMessageReceived);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -107,6 +123,33 @@ namespace Comics
                 e.Handled = true;
                 rootFrame.GoBack();
             }
+        }
+
+        private async void OnShareComicMessageReceived(ShareComicMessage message)
+        {
+            SharedComic = message.Comic;
+            using (var client = new HttpClient())
+            {
+                using (var stream = await client.GetStreamAsync(SharedComic.ComicStrip.UriSource))
+                {
+                    SharedImage = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("shared_comic.png", CreationCollisionOption.ReplaceExisting);
+                    using (var outStream = await SharedImage.OpenStreamForWriteAsync())
+                    {
+                        await stream.CopyToAsync(outStream);
+                    }
+                }
+            }
+
+            DataTransferManager.ShowShareUI();
+        }
+
+
+        private void OnDataRequested(DataTransferManager s, DataRequestedEventArgs e)
+        {
+            var requestData = e.Request.Data;
+            requestData.Properties.Title = SharedComic.ComicWebsite.Name;
+            requestData.SetWebLink(SharedComic.ComicUri);
+            requestData.SetBitmap(RandomAccessStreamReference.CreateFromFile(SharedImage));
         }
     }
 }

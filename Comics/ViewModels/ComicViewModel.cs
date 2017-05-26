@@ -1,11 +1,14 @@
-﻿using Comics.Models;
+﻿using Comics.Messages;
+using Comics.Models;
 using Comics.Services;
 using Comics.UserStorage;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Views;
 using System;
 using System.Windows.Input;
+using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -43,7 +46,9 @@ namespace Comics.ViewModels
         public RelayCommand LoadLatestComicCommand { get; }
         public RelayCommand LoadPreviousComicCommand { get; }
         public RelayCommand LoadNextComicCommand { get; }
+        public ICommand OpenInBrowserCommand { get; }
         public ICommand SetZoomFactorCommand { get; }
+        public ICommand ShareComicCommand { get; }
 
         private BitmapImage comicStrip;
         public BitmapImage ComicStrip
@@ -73,7 +78,9 @@ namespace Comics.ViewModels
             LoadPreviousComicCommand = new RelayCommand(LoadPreviousComicAsync, () => Comic != null && Comic.HasPreviousComic);
             LoadNextComicCommand = new RelayCommand(LoadNextComicAsync, () => Comic != null && Comic.HasNextComic);
 
+            OpenInBrowserCommand = new RelayCommand(OpenInBrowserAsync);
             SetZoomFactorCommand = new RelayCommand<ScrollViewer>(SetZoomLevel);
+            ShareComicCommand = new RelayCommand(ShareComic);
         }
 
         private async void LoadOldestComicAsync()
@@ -96,12 +103,22 @@ namespace Comics.ViewModels
             Comic = await ComicProvider.LoadComicAsync(Comic.NextComic);
         }
 
+        private async void OpenInBrowserAsync()
+        {
+            await Launcher.LaunchUriAsync(ComicUri);
+        }
+
         private void SetZoomLevel(ScrollViewer viewer)
         {
             var widthZoomFactor = (viewer.ActualWidth / ComicStrip.PixelWidth) * 0.95;
             var heightZoomFactor = (viewer.ActualHeight / ComicStrip.PixelHeight) * 0.95;
 
             viewer.ChangeView(0.0, 0.0, (float)Math.Min(widthZoomFactor, heightZoomFactor), false);
+        }
+
+        private void ShareComic()
+        {
+            Messenger.Default.Send(new ShareComicMessage(Comic));
         }
     }
 }
